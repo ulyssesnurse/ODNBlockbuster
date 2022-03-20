@@ -46,19 +46,17 @@ const write = async (movies) => {
 
 const publish = async () => {
     const client = new DKGClient(options)
-    const files = await fs.promises.readdir('./data')
-    for (const file of files) {
-        const content = await fs.readJson('./data/' + file)
-        const options = {
-            filepath: './data/' + file,
-            assets: ['0x123456789123456789123456789'],
-            keywords: [ movies["Actors"], movies["Title"], movies["Director"] ],
-            visibility: "public"
-        }
-        console.log("Trying to publish: \n" + JSON.stringify(content))
-        await client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result)))
-            .catch((error) => console.log(error.message))
+    const content = await fs.readJson('./data/' + 'Title.json')
+    const options = {
+        filepath: './data/' + 'Title.json',
+        assets: ['0x123456789123456789123456789'],
+        keywords: [ movies["Actors"], movies["Title"], movies["Director"] ],
+        visibility: "public"
     }
+    console.log("Trying to publish: \n" + JSON.stringify(content))
+    await client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result)))
+        .catch((error) => console.log(error.message))
+   
 }
 
 const movies = await run(URL)
